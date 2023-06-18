@@ -7,7 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class UserTests {
+public class TestCase {
 
     Faker faker;
     User userPayload;
@@ -28,18 +28,40 @@ public class UserTests {
     }
 
     @Test(priority = 1)
-    public void postUserTest(){
+    public void postUser(){
        Response response = UserEndPoints.createUser(userPayload);
        response.then().log().all();
-
         Assert.assertEquals(response.getStatusCode(), 200);
     }
 
     @Test(priority = 2)
-    public void GetUserByNameTest(){
+    public void GetUserByName(){
         Response response = UserEndPoints.ReadUser(this.userPayload.getUsername());
         response.then().log().all();
-
         Assert.assertEquals(response.getStatusCode(), 200);
     }
+
+    @Test(priority = 3)
+    public void UpdateUserByName(){
+
+        // update data using payload
+        userPayload.setFirstName(faker.name().firstName());
+        userPayload.setLastName(faker.name().lastName());
+        userPayload.setEmail(faker.internet().safeEmailAddress());
+
+        Response response = UserEndPoints.UpdateUser(this.userPayload.getUsername(), userPayload);
+        response.then().log().body().statusCode(200);
+        Assert.assertEquals(response.getStatusCode(), 200);
+
+        // check data after update
+        Response responseAfterUpdate = UserEndPoints.ReadUser(this.userPayload.getUsername());
+        Assert.assertEquals(responseAfterUpdate.getStatusCode(), 200);
+    }
+
+    @Test(priority = 4)
+    public void DeleteUserByName(){
+        Response response = UserEndPoints.DeleteUser(this.userPayload.getUsername());
+        Assert.assertEquals(response.getStatusCode(), 200);
+    }
+
 }
