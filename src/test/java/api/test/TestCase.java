@@ -27,10 +27,18 @@ public class UserTests {
         userPayload.setPhone(faker.phoneNumber().cellPhone());
     }
 
-    @Test
+    @Test(priority = 1)
     public void postUserTest(){
        Response response = UserEndPoints.createUser(userPayload);
        response.then().log().all();
+
+        Assert.assertEquals(response.getStatusCode(), 200);
+    }
+
+    @Test(priority = 2)
+    public void GetUserByNameTest(){
+        Response response = UserEndPoints.ReadUser(this.userPayload.getUsername());
+        response.then().log().all();
 
         Assert.assertEquals(response.getStatusCode(), 200);
     }

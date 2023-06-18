@@ -52,7 +52,7 @@ public class UserEndPoints {
                 .pathParam("username", userName)
 
                 .when()
-                .put(Routes.delete_url);
+                .delete(Routes.delete_url);
 
             return response;
     }
