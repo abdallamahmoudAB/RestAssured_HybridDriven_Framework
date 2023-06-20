@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="UserSuite">
+    <listeners>
+        <listener
+                class-name="api.utilities.ExtentReportManager">
+        </listener>
+    </listeners>
+    <test verbose="2" preserve-order="true" name="UserTest">
+        <classes>
+<!--            <class name="api.test.DataDrivenTest">-->
+<!--                <methods>-->
+<!--                    <include name="postUser"/>-->
+<!--                    <include name="DeleteUserByName"/>-->
+<!--                </methods>-->
+<!--            </class>-->
+            <class name="api.test.TestCase">
+                <methods>
+                    <include name="postUser"/>
+                    <include name="GetUserByName"/>
+                    <include name="UpdateUserByName"/>
+                    <include name="DeleteUserByName"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
