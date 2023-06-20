@@ -27,21 +27,21 @@ public class TestCase {
         userPayload.setPhone(faker.phoneNumber().cellPhone());
     }
 
-    @Test(priority = 1)
+    @Test
     public void postUser(){
        Response response = UserEndPoints.createUser(userPayload);
        response.then().log().all();
         Assert.assertEquals(response.getStatusCode(), 200);
     }
 
-    @Test(priority = 2)
+    @Test
     public void GetUserByName(){
         Response response = UserEndPoints.ReadUser(this.userPayload.getUsername());
         response.then().log().all();
         Assert.assertEquals(response.getStatusCode(), 200);
     }
 
-    @Test(priority = 3)
+    @Test
     public void UpdateUserByName(){
 
         // update data using payload
@@ -58,7 +58,7 @@ public class TestCase {
         Assert.assertEquals(responseAfterUpdate.getStatusCode(), 200);
     }
 
-    @Test(priority = 4)
+    @Test
     public void DeleteUserByName(){
         Response response = UserEndPoints.DeleteUser(this.userPayload.getUsername());
         Assert.assertEquals(response.getStatusCode(), 200);
